@@ -1,0 +1,40 @@
+name: Build for Linux Alpine on Rockchip
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+    - uses: actions/checkout@v3.3.0
+      
+    - name: Prepere build environment
+      id: prepare_build_env
+      shell: bash
+      run: ./prepare-env.sh
+      
+    - name: Compiling the boot media
+      id: create_build
+      shell: bash
+      run: ./build.sh
+      
+    - name: Packing up archive
+      id: create_archive
+      shell: bash
+      run: ./create_archive.sh
+      
+    - name: Upload build to repo release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        file: ./alpine-3.17.3-rk3399.zip
+        asset_name: alpine-3.17.3-rk3399.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "In the attachement is the latest filesystem as ZIP archive."
