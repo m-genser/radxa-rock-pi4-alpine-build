@@ -1,7 +1,7 @@
-apt-get update 
+sudo apt-get update 
 
 # Install cpio
-apt-get install cpio
+sudo apt-get install cpio
 
 # Install lzop
-apt-get install lzop
+sudo apt-get install lzop

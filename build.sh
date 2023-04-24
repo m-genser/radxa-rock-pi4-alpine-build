@@ -33,4 +33,3 @@ cd kernelbuildscripts/
 git checkout origin/v5.4.x -b tmp
 
 ./build_kernel.sh
-
