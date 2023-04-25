@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions: write-all
 
     steps:
@@ -29,12 +29,20 @@ jobs:
       id: create_archive
       shell: bash
       run: ./create_archive.sh
-      
-    - name: Upload build to repo release
+     
+    - name: Upload rockchip firmware to repo release
       uses: svenstaro/upload-release-action@v2
       with:
-        file: ./alpine-3.17.3-rk3399.zip
-        asset_name: alpine-3.17.3-rk3399.zip
+        file: ./arm-firmware-rk3399.zip
+        asset_name: arm-firmware-rk3399.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+     
+    - name: Upload build linux kernel to repo release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        file: ./linux-kernel-rk3399.zip
+        asset_name: linux-kernel-rk3399.zip
         tag: ${{ github.ref }}
         overwrite: true
         body: "In the attachement is the latest filesystem as ZIP archive."
