@@ -32,4 +32,7 @@ cd kernelbuildscripts/
 
 git checkout origin/v5.4.x -b tmp
 
+# Set Kernel Build to Non-Interactive (without graphic terminal)
+./scripts/kconfig/mconf --set-val CONFIG_OPTION y
+
 ./build_kernel.sh
